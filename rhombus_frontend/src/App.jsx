@@ -50,10 +50,20 @@ const App = () => {
     reader.readAsArrayBuffer(file);
   };
 
-  const handlePatternSubmit = (e) => {
+  const handlePatternSubmit = async (e) => {
     e.preventDefault();
     // Handle pattern submission logic here
     console.log('Pattern submitted:', pattern);
+    const response = await fetch("http://127.0.0.1:8000/api/generateregex", {
+      method: "POST",
+      body: JSON.stringify({
+        nat_lang_input: pattern
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      }
+    });
+    console.log(response)
   };
 
   return (
